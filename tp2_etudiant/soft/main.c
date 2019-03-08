@@ -8,8 +8,5 @@ __attribute__((constructor)) void main()
 	while(1) {
 		tty_puts(s);
 		tty_getc(&c);
-		while (c == 0) {
-			tty_getc(&c);
-		}
 	}
 } // end main

@@ -1,0 +1,83 @@
+
+********************************************************
+******        tp2_top                             ******
+********************************************************
+
+
+Instanciation of PibuBcu : bcu
+    nb_master = 1
+    nb_target = 3
+    time_out  = 100
+
+Instanciation of PibusMips32Xcache : proc
+    proc_id      = 0
+    icache_ways  = 4
+    icache_sets  = 256
+    icache_words = 16
+    dcache_ways  = 4
+    dcache_sets  = 256
+    dcache_words = 16
+    wbuf_depth   = 8
+    snoop        = 0
+
+Instanciation of PibusSimpleRam : rom
+    latency = 0
+    segment seg_reset | base = 0xbfc00000 | size = 0x1000
+
+Instanciation of PibusSimpleRam : ram
+    latency = 0
+    segment seg_kcode | base = 0x80000000 | size = 0x4000
+    segment seg_kdata | base = 0x82000000 | size = 0x10000
+    segment seg_kunc | base = 0x81000000 | size = 0x1000
+    segment seg_code | base = 0x400000 | size = 0x4000
+    segment seg_data | base = 0x1000000 | size = 0x4000
+    segment seg_stack | base = 0x2000000 | size = 0x4000
+
+Instanciation of PibusMultiTty : tty
+    ntty = 1
+    segment seg_tty | base = 0x90000000 | size = 0x10
+
+bcu : connected
+rom : connected
+ram : connected
+tty : connected
+proc : connected
+
+Loading at 0xbfc00000 size 0x1000: seg_reset 
+Loading at 0x80000000 size 0x4000: seg_kcode 
+Loading at 0x82000000 size 0x10000: seg_kdata 
+Loading at 0x81000000 size 0x1000: seg_kunc 
+Loading at 0x400000 size 0x4000: seg_code 
+Loading at 0x1000000 size 0x4000: seg_data 
+Loading at 0x2000000 size 0x4000: nothing
+Loading at 0xbfc00000 size 0x1000: seg_reset 
+Loading at 0x80000000 size 0x4000: seg_kcode 
+Loading at 0x82000000 size 0x10000: seg_kdata 
+Loading at 0x81000000 size 0x1000: seg_kunc 
+Loading at 0x400000 size 0x4000: seg_code 
+Loading at 0x1000000 size 0x4000: seg_data 
+Loading at 0x2000000 size 0x4000: nothing
+*** proc at cycle 1
+- INSTRUCTIONS       = 0
+- CPI                = inf
+- CACHED READ RATE   = -nan
+- UNCACHED READ RATE = -nan
+- WRITE RATE         = -nan
+- IMISS RATE         = inf
+- DMISS RATE         = -nan
+- IMISS COST         = 1
+- DMISS COST         = -nan
+- UNC COST           = -nan
+- WRITE COST         = -nan
+*** proc at cycle 1000
+- INSTRUCTIONS       = 237
+- CPI                = 4.21941
+- CACHED READ RATE   = 0.329114
+- UNCACHED READ RATE = 0
+- WRITE RATE         = 0.168776
+- IMISS RATE         = 0.0801688
+- DMISS RATE         = 0.128205
+- IMISS COST         = 25.1053
+- DMISS COST         = 24.2
+- UNC COST           = -nan
+- WRITE COST         = 0
