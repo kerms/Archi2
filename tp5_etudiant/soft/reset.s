@@ -21,7 +21,12 @@ reset:
 
 # initializes stack pointer
 	la	$29,	seg_stack_base
+	mfc0  $27,  $15,  1
 	addiu	$29,	$29,	0x4000		# stack size = 16 Kbytes
+
+	beq $27, $0, here
+
+here:
 
 # initializes SR register
        	li	$26,	0x0000FF13	

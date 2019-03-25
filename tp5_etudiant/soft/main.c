@@ -26,12 +26,14 @@ __attribute__ ((constructor)) void main()
     unsigned int 	pixel;
 
     for(line = 0 ; line < NLINE ; line++) 
-    { 
+    {
+        if(line % nprocs == n) continue;
         for(pixel = 0 ; pixel < NPIXEL ; pixel++)
         {
             buf[pixel] = build(pixel, line, 5);
         }
-        if ( fb_sync_write( TO BE COMPLETED ) ) 
+        
+        if ( fb_sync_write( line * NPIXEL, buf, NPIXEL ) ) 
             tty_printf(" !!! wrong transfer to frame buffer for line %d\n", line); 
         else
             tty_printf(" - building line %d\n", line);

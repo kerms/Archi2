@@ -3,4 +3,7 @@
 *.zip
 *.o
 *.tgz
+*.x
+*.bin
+trace
 .svn/

@@ -26,17 +26,17 @@
 // Hardware parameters default values
 // These values can be modified on the command Line
 
-#define NPROCS		1	// number of processors
-#define FB_NPIXEL	128	// Frame buffer width
-#define FB_NLINE	128	// Frame buffer heigth
+#define NPROCS		2	// number of processors
+#define FB_NPIXEL	256	// Frame buffer width
+#define FB_NLINE	256	// Frame buffer heigth
 #define BLOCK_SIZE	512	// IOC block size
 #define IOC_LATENCY	1000	// disk latency
 #define RAM_LATENCY	0	// ram latency
-#define ICACHE_WAYS	4       // instruction cache number of ways
-#define ICACHE_SETS	512     // instruction cache number of sets
+#define ICACHE_WAYS	1       // instruction cache number of ways
+#define ICACHE_SETS	16     // instruction cache number of sets
 #define ICACHE_WORDS	8       // instruction cache number of words per line
-#define DCACHE_WAYS	4       // data cache number of ways
-#define DCACHE_SETS	512     // data cache number of sets
+#define DCACHE_WAYS	1       // data cache number of ways
+#define DCACHE_SETS	16     // data cache number of sets
 #define DCACHE_WORDS	8       // data cache number of words per line
 #define WBUF_DEPTH	8       // cache write buffer depth
 #define SNOOP		false	// cache snoop activation
