@@ -5,5 +5,7 @@
 *.tgz
 *.x
 *.bin
+*.o.txt
+*.bin.txt
 trace
 .svn/

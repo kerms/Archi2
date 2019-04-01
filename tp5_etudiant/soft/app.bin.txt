@@ -1327,94 +1327,86 @@ Disassembly of section seg_code:
   40138c:	00000000 	nop
 
 00401390 <main>:
-  401390:	27bdfec8 	addiu	sp,sp,-312
-  401394:	afbf0134 	sw	ra,308(sp)
-  401398:	afbe0130 	sw	s8,304(sp)
-  40139c:	afb0012c 	sw	s0,300(sp)
+  401390:	27bdfed0 	addiu	sp,sp,-304
+  401394:	afbf012c 	sw	ra,300(sp)
+  401398:	afbe0128 	sw	s8,296(sp)
+  40139c:	afb00124 	sw	s0,292(sp)
   4013a0:	03a0f021 	move	s8,sp
   4013a4:	0c100000 	jal	400000 <procid>
   4013a8:	00000000 	nop
-  4013ac:	afc2001c 	sw	v0,28(s8)
-  4013b0:	24020002 	li	v0,2
-  4013b4:	afc20018 	sw	v0,24(s8)
-  4013b8:	afc00014 	sw	zero,20(s8)
-  4013bc:	08100527 	j	40149c <main+0x10c>
-  4013c0:	00000000 	nop
-  4013c4:	8fc30018 	lw	v1,24(s8)
-  4013c8:	8fc20014 	lw	v0,20(s8)
-  4013cc:	0043001b 	divu	zero,v0,v1
-  4013d0:	006001f4 	teq	v1,zero,0x7
-  4013d4:	00001010 	mfhi	v0
-  4013d8:	00401821 	move	v1,v0
-  4013dc:	8fc2001c 	lw	v0,28(s8)
-  4013e0:	1062002b 	beq	v1,v0,401490 <main+0x100>
-  4013e4:	00000000 	nop
-  4013e8:	afc00010 	sw	zero,16(s8)
-  4013ec:	0810050a 	j	401428 <main+0x98>
-  4013f0:	00000000 	nop
-  4013f4:	8fd00010 	lw	s0,16(s8)
-  4013f8:	8fc40010 	lw	a0,16(s8)
-  4013fc:	8fc50014 	lw	a1,20(s8)
-  401400:	24060005 	li	a2,5
-  401404:	0c1004b7 	jal	4012dc <build>
-  401408:	00000000 	nop
-  40140c:	00401821 	move	v1,v0
-  401410:	27c20010 	addiu	v0,s8,16
-  401414:	00501021 	addu	v0,v0,s0
-  401418:	a0430010 	sb	v1,16(v0)
-  40141c:	8fc20010 	lw	v0,16(s8)
-  401420:	24420001 	addiu	v0,v0,1
-  401424:	afc20010 	sw	v0,16(s8)
-  401428:	8fc20010 	lw	v0,16(s8)
-  40142c:	2c420100 	sltiu	v0,v0,256
-  401430:	1440fff0 	bnez	v0,4013f4 <main+0x64>
+  4013ac:	afc20018 	sw	v0,24(s8)
+  4013b0:	afc00014 	sw	zero,20(s8)
+  4013b4:	0810051f 	j	40147c <main+0xec>
+  4013b8:	00000000 	nop
+  4013bc:	8fc20018 	lw	v0,24(s8)
+  4013c0:	1440002b 	bnez	v0,401470 <main+0xe0>
+  4013c4:	00000000 	nop
+  4013c8:	afc00010 	sw	zero,16(s8)
+  4013cc:	08100502 	j	401408 <main+0x78>
+  4013d0:	00000000 	nop
+  4013d4:	8fd00010 	lw	s0,16(s8)
+  4013d8:	8fc40010 	lw	a0,16(s8)
+  4013dc:	8fc50014 	lw	a1,20(s8)
+  4013e0:	24060005 	li	a2,5
+  4013e4:	0c1004b7 	jal	4012dc <build>
+  4013e8:	00000000 	nop
+  4013ec:	00401821 	move	v1,v0
+  4013f0:	27c20010 	addiu	v0,s8,16
+  4013f4:	00501021 	addu	v0,v0,s0
+  4013f8:	a043000c 	sb	v1,12(v0)
+  4013fc:	8fc20010 	lw	v0,16(s8)
+  401400:	24420001 	addiu	v0,v0,1
+  401404:	afc20010 	sw	v0,16(s8)
+  401408:	8fc20010 	lw	v0,16(s8)
+  40140c:	2c420100 	sltiu	v0,v0,256
+  401410:	1440fff0 	bnez	v0,4013d4 <main+0x44>
+  401414:	00000000 	nop
+  401418:	8fc20014 	lw	v0,20(s8)
+  40141c:	00021200 	sll	v0,v0,0x8
+  401420:	27c3001c 	addiu	v1,s8,28
+  401424:	00402021 	move	a0,v0
+  401428:	00602821 	move	a1,v1
+  40142c:	24060100 	li	a2,256
+  401430:	0c1003e2 	jal	400f88 <fb_sync_write>
   401434:	00000000 	nop
-  401438:	8fc20014 	lw	v0,20(s8)
-  40143c:	00021200 	sll	v0,v0,0x8
-  401440:	27c30020 	addiu	v1,s8,32
-  401444:	00402021 	move	a0,v0
-  401448:	00602821 	move	a1,v1
-  40144c:	24060100 	li	a2,256
-  401450:	0c1003e2 	jal	400f88 <fb_sync_write>
-  401454:	00000000 	nop
-  401458:	10400008 	beqz	v0,40147c <main+0xec>
-  40145c:	00000000 	nop
-  401460:	3c020100 	lui	v0,0x100
-  401464:	24440078 	addiu	a0,v0,120
-  401468:	8fc50014 	lw	a1,20(s8)
-  40146c:	0c1001e8 	jal	4007a0 <tty_printf>
-  401470:	00000000 	nop
-  401474:	08100524 	j	401490 <main+0x100>
-  401478:	00000000 	nop
-  40147c:	3c020100 	lui	v0,0x100
-  401480:	244400ac 	addiu	a0,v0,172
-  401484:	8fc50014 	lw	a1,20(s8)
-  401488:	0c1001e8 	jal	4007a0 <tty_printf>
-  40148c:	00000000 	nop
-  401490:	8fc20014 	lw	v0,20(s8)
-  401494:	24420001 	addiu	v0,v0,1
-  401498:	afc20014 	sw	v0,20(s8)
-  40149c:	8fc20014 	lw	v0,20(s8)
-  4014a0:	2c420100 	sltiu	v0,v0,256
-  4014a4:	1440ffc7 	bnez	v0,4013c4 <main+0x34>
+  401438:	10400008 	beqz	v0,40145c <main+0xcc>
+  40143c:	00000000 	nop
+  401440:	3c020100 	lui	v0,0x100
+  401444:	24440078 	addiu	a0,v0,120
+  401448:	8fc50014 	lw	a1,20(s8)
+  40144c:	0c1001e8 	jal	4007a0 <tty_printf>
+  401450:	00000000 	nop
+  401454:	0810051c 	j	401470 <main+0xe0>
+  401458:	00000000 	nop
+  40145c:	3c020100 	lui	v0,0x100
+  401460:	244400ac 	addiu	a0,v0,172
+  401464:	8fc50014 	lw	a1,20(s8)
+  401468:	0c1001e8 	jal	4007a0 <tty_printf>
+  40146c:	00000000 	nop
+  401470:	8fc20014 	lw	v0,20(s8)
+  401474:	24420001 	addiu	v0,v0,1
+  401478:	afc20014 	sw	v0,20(s8)
+  40147c:	8fc20014 	lw	v0,20(s8)
+  401480:	2c420100 	sltiu	v0,v0,256
+  401484:	1440ffcd 	bnez	v0,4013bc <main+0x2c>
+  401488:	00000000 	nop
+  40148c:	0c100024 	jal	400090 <proctime>
+  401490:	00000000 	nop
+  401494:	00401821 	move	v1,v0
+  401498:	3c020100 	lui	v0,0x100
+  40149c:	244400c4 	addiu	a0,v0,196
+  4014a0:	00602821 	move	a1,v1
+  4014a4:	0c1001e8 	jal	4007a0 <tty_printf>
   4014a8:	00000000 	nop
-  4014ac:	0c100024 	jal	400090 <proctime>
+  4014ac:	0c10046c 	jal	4011b0 <exit>
   4014b0:	00000000 	nop
-  4014b4:	00401821 	move	v1,v0
-  4014b8:	3c020100 	lui	v0,0x100
-  4014bc:	244400c4 	addiu	a0,v0,196
-  4014c0:	00602821 	move	a1,v1
-  4014c4:	0c1001e8 	jal	4007a0 <tty_printf>
-  4014c8:	00000000 	nop
-  4014cc:	0c10046c 	jal	4011b0 <exit>
-  4014d0:	00000000 	nop
-  4014d4:	03c0e821 	move	sp,s8
-  4014d8:	8fbf0134 	lw	ra,308(sp)
-  4014dc:	8fbe0130 	lw	s8,304(sp)
-  4014e0:	8fb0012c 	lw	s0,300(sp)
-  4014e4:	27bd0138 	addiu	sp,sp,312
-  4014e8:	03e00008 	jr	ra
-  4014ec:	00000000 	nop
+  4014b4:	03c0e821 	move	sp,s8
+  4014b8:	8fbf012c 	lw	ra,300(sp)
+  4014bc:	8fbe0128 	lw	s8,296(sp)
+  4014c0:	8fb00124 	lw	s0,292(sp)
+  4014c4:	27bd0130 	addiu	sp,sp,304
+  4014c8:	03e00008 	jr	ra
+  4014cc:	00000000 	nop
 
 Disassembly of section seg_data:
 
@@ -1733,7 +1725,7 @@ Disassembly of section .pdr:
  464:	c0010000 	ll	at,0(zero)
  468:	fffffffc 	sdc3	$31,-4(ra)
 	...
- 474:	00000138 	0x138
+ 474:	00000130 	tge	zero,zero,0x4
  478:	0000001e 	0x1e
  47c:	0000001f 	0x1f
 

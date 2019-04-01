@@ -13,15 +13,16 @@ Disassembly of section .reset:
 00000000 <reset>:
    0:	3c1d0000 	lui	sp,0x0
    4:	27bd0000 	addiu	sp,sp,0
-   8:	401b7801 	mfc0	k1,$15,1
-   c:	27bd0000 	addiu	sp,sp,0
-  10:	13600000 	beqz	k1,14 <here>
-
-00000014 <here>:
-  14:	341aff13 	li	k0,0xff13
-  18:	409a6000 	mtc0	k0,c0_status
-  1c:	3c1a0000 	lui	k0,0x0
-  20:	275a0000 	addiu	k0,k0,0
-  24:	8f5a0000 	lw	k0,0(k0)
-  28:	409a7000 	mtc0	k0,c0_epc
-  2c:	42000018 	eret
+   8:	241b0001 	li	k1,1
+   c:	001bdc00 	sll	k1,k1,0x10
+  10:	03bbe821 	addu	sp,sp,k1
+  14:	401b7801 	mfc0	k1,$15,1
+  18:	001bdc00 	sll	k1,k1,0x10
+  1c:	03bbe821 	addu	sp,sp,k1
+  20:	341aff13 	li	k0,0xff13
+  24:	409a6000 	mtc0	k0,c0_status
+  28:	3c1a0000 	lui	k0,0x0
+  2c:	275a0000 	addiu	k0,k0,0
+  30:	8f5a0000 	lw	k0,0(k0)
+  34:	409a7000 	mtc0	k0,c0_epc
+  38:	42000018 	eret

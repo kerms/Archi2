@@ -95,7 +95,7 @@ Disassembly of section .sbss:
 Disassembly of section .sdata:
 
 00000000 <_task_number_array>:
-   0:	00000101 	0x101
+   0:	00000001 	movf	zero,zero,$fcc0
 
 Disassembly of section .comment:
 

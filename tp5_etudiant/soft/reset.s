@@ -21,12 +21,13 @@ reset:
 
 # initializes stack pointer
 	la	$29,	seg_stack_base
+	addiu $27, $0, 1 # for shift
+	sll $27, $27, 16 # $27 <= 64K
+	addu	$29,	$29,	$27
+	
 	mfc0  $27,  $15,  1
-	addiu	$29,	$29,	0x4000		# stack size = 16 Kbytes
-
-	beq $27, $0, here
-
-here:
+	sll $27, $27, 16 # nbproc * 64k
+	addu	$29,	$29,	$27
 
 # initializes SR register
        	li	$26,	0x0000FF13	

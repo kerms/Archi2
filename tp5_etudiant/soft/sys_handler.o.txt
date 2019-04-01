@@ -51,7 +51,7 @@ Disassembly of section .text:
   9c:	27bdfff8 	addiu	sp,sp,-8
   a0:	afbe0004 	sw	s8,4(sp)
   a4:	03a0f021 	move	s8,sp
-  a8:	24020002 	li	v0,2
+  a8:	24020001 	li	v0,1
   ac:	03c0e821 	move	sp,s8
   b0:	8fbe0004 	lw	s8,4(sp)
   b4:	27bd0008 	addiu	sp,sp,8

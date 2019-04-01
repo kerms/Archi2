@@ -21,13 +21,12 @@ __attribute__ ((constructor)) void main()
 {
     unsigned char 	buf[NPIXEL];
     int 		n = procid();
-    int			nprocs = NB_PROCS;
     unsigned int 	line;
     unsigned int 	pixel;
 
     for(line = 0 ; line < NLINE ; line++) 
     {
-        if(line % nprocs == n) continue;
+        if(line % NB_PROCS != n) continue;
         for(pixel = 0 ; pixel < NPIXEL ; pixel++)
         {
             buf[pixel] = build(pixel, line, 5);
