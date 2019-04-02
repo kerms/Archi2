@@ -18,6 +18,7 @@
 	.extern	seg_stack_base
 	.extern	seg_data_base
     .extern seg_timer_base
+    .extern seg_icu_base
 
 	.func	reset
 	.type   reset, %function
@@ -33,10 +34,23 @@ reset:
 
 proc0:
         # initialises interrupt vector entries for PROC[0]
+        la 		$29, 	_interrupt_vector  	# from irq_handler.c or ICU 0x0
+        la 		$27,	_isr_timer		   	# from irq_handler.c
+       	sw		$27,	8($29)				# IN (2+2*0)*4
 
         #initializes the ICU[0] MASK register
+        la 		$29, 	seg_icu_base
+        addiu 	$29,	$29,	0x0		# +0 to ICU[0]
+        addiu	$27,	$0,		0x8		# +8 = (2+2*0)*4 = IRQ_TIME[0]
+        sw 		$27,	8($29)			# ICU_MASK_SET 	(0x08) <= 8
 
         # initializes TIMER[0] PERIOD and RUNNING registers
+        la 		$29, 	seg_timer_base
+        addiu 	$29,	$29,	0x0		# +0 to TIMER[0]
+        li		$27,	100000			# period <= 50 000
+        sw 		$27,	8($29)			# TIMER_PERIOD (0x08)
+        addiu	$27,	$27,	1		# TIMER_RUNNING <= TRUE
+        sw 		$27,	4($29)			# TIMER_RUNNING (0x04)
 
         # initializes stack pointer for PROC[0]
         la	$29,	seg_stack_base
@@ -55,10 +69,23 @@ proc0:
 
 proc1:
         # initialises interrupt vector entries for PROC[1]
+        la 		$29, 	_interrupt_vector  	# from irq_handler.c
+        la 		$27,	_isr_timer		   	# from irq_handler.c
+       	sw		$27,	16($29)				# IN (2+2*1)*4
 
         #initializes the ICU[1] MASK register
+        la 		$29, 	seg_icu_base
+        addiu 	$29,	$29,	0x20	# +32 to ICU[1]
+        addiu	$27,	$0,		0x10	# +16 = (2+2*1)*4 = IRQ_TIME[1]
+        sw 		$27,	8($29)			# ICU_MASK_SET 	(0x08) <= 16
 
         # initializes TIMER[1] PERIOD and RUNNING registers
+        la 		$29, 	seg_timer_base
+        addiu 	$29,	$29,	0x10	# +16 to TIMER[1]
+        li		$27,	100000			# period <= 100 000
+        sw 		$27,	8($29)			# TIMER_PERIOD (0x08)
+        addiu	$27,	$27,	1		# TIMER_RUNNING <= TRUE
+        sw 		$27,	4($29)			# TIMER_RUNNING (0x04)
 
         # initializes stack pointer for PROC[1]
 
