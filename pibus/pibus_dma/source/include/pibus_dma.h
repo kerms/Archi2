@@ -15,7 +15,7 @@
 // - DEST		(0x04)  Read/Write	Destination buffer base address
 // - LENGTH/STATUS	(0x08)	Read/Write	Transfer length (bytes) / Status
 // - RESET  		(0x0C)	Write Only	Software reset & IRQ acknowledge
-// - IRQ_DISABLED	(0x10)	Read/Write	IRQ disabled when non zeo
+// - IRQ_DISABLED	(0x10)	Read/Write	IRQ disabled when non zero
 //
 // A write access to register LENGTH/STATUS starts the DMA transfer, 
 // with the addresses contained in registers SOURCE and DEST,

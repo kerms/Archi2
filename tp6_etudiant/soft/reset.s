@@ -50,7 +50,7 @@ proc0:
 
         # initializes TIMER[0] PERIOD and RUNNING registers
         la $26, seg_timer_base
-        li $27, 50000 
+        li $27, 500000 
         sw $27, 8($26)              # on stocke la période pour le timer0 dans le registre TIMER_PERIOD[i]
         li $27, 1
         sw $27, 4($26)              # Activation en écrivant 1 dans le registre TIMER_RUNNING[i]
