@@ -33,11 +33,25 @@ reset:
 
 proc0:
         # initialises interrupt vector entries for PROC[0]
+        la  $26,    _interrupt_vector
+        la  $27,    _isr_timer
+        sw  $27, 8($26)
+        la  $27,    _isr_tty_get #F
+        sw  $27, 12($26) #F
 
         #initializes the ICU[0] MASK register
+        la $26, seg_icu_base
+        li $27, 0b1100
+        sw $27, 8($26)            #mask <= mask | wdata
+        
 
         # initializes TIMER[0] PERIOD and RUNNING registers
-
+        la $26, seg_timer_base
+        li $27, 50000 
+        sw $27, 8($26)              # on stocke la période pour le timer0 dans le registre TIMER_PERIOD[i]
+        li $27, 1
+        sw $27, 4($26)              # Activation en écrivant 1 dans le registre TIMER_RUNNING[i]
+            
         # initializes stack pointer for PROC[0]
         la	$29,	seg_stack_base
         li	$27,	0x10000			# stack size = 64K
@@ -55,11 +69,25 @@ proc0:
 
 proc1:
         # initialises interrupt vector entries for PROC[1]
-
+        la  $26,    _interrupt_vector
+        la  $27,    _isr_timer
+        sw  $27, 16($26)
+        la  $28,    _isr_tty_get #F init
+        sw  $28, 20($26) #F
         #initializes the ICU[1] MASK register
+        la $26, seg_icu_base
+        addiu $26, $26, 32    # changer de base pour le proc1, le composant icu prend 32 * NPROC octets
+        #li $27, 0b10000  
+        li $27, 0b100000   
+        sw $27, 8($26)        #mask <= mask | wdata
 
         # initializes TIMER[1] PERIOD and RUNNING registers
-
+        la $26, seg_timer_base
+        addiu $26, $26, 16       # changer de base pour le proc1
+        li $27, 100000
+        sw $27, 8($26)             # on stocke la période pour le timer1 dans le registre TIMER_PERIOD[i]
+        li $27, 1
+        sw $27, 4($26)              # Activation en écrivant 1 dans le registre TIMER_RUNNING[i]
         # initializes stack pointer for PROC[1]
 
         la      $29,    seg_stack_base
