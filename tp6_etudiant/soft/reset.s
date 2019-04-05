@@ -18,6 +18,7 @@
 	.extern	seg_stack_base
 	.extern	seg_data_base
     .extern seg_timer_base
+    .extern seg_icu_base
 
 	.func	reset
 	.type   reset, %function
@@ -33,6 +34,8 @@ reset:
 
 proc0:
         # initialises interrupt vector entries for PROC[0]
+
+
         la  $26,    _interrupt_vector
         la  $27,    _isr_timer
         sw  $27, 8($26)
@@ -52,6 +55,7 @@ proc0:
         li $27, 1
         sw $27, 4($26)              # Activation en écrivant 1 dans le registre TIMER_RUNNING[i]
             
+
         # initializes stack pointer for PROC[0]
         la	$29,	seg_stack_base
         li	$27,	0x10000			# stack size = 64K
@@ -69,6 +73,7 @@ proc0:
 
 proc1:
         # initialises interrupt vector entries for PROC[1]
+
         la  $26,    _interrupt_vector
         la  $27,    _isr_timer
         sw  $27, 16($26)
@@ -88,6 +93,7 @@ proc1:
         sw $27, 8($26)             # on stocke la période pour le timer1 dans le registre TIMER_PERIOD[i]
         li $27, 1
         sw $27, 4($26)              # Activation en écrivant 1 dans le registre TIMER_RUNNING[i]
+
         # initializes stack pointer for PROC[1]
 
         la      $29,    seg_stack_base
