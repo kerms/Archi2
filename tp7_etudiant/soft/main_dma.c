@@ -36,6 +36,12 @@ __attribute__ ((constructor)) void main()
 	    exit();
 	}
 
+	/*if(fb_completed() != 0)
+	{
+            tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
+	    exit();
+	}*/
+
         tty_printf(" - display OK at cycle %d\n", proctime());
 
     }

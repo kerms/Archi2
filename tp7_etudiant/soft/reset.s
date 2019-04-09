@@ -33,7 +33,7 @@ reset:
         #initializes the ICU MASK[0] register
 	la	$26,	seg_icu_base
         addiu	$26,	$26,	0		# ICU[0]
-        li  	$27,	0b00001001 		# IRQ_DMA[0] & IRQ_TTY[0]
+        li  	$27,	0b00000001 		# IRQ_DMA[0] & IRQ_TTY[0] 0b00001001
         sw	$27,	8($26)
 
         # initializes stack pointer 
