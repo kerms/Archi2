@@ -22,7 +22,7 @@ CFLAGS= -Wall -mno-gpopt -ffreestanding -mips32
 
 ## system & application compilation
 
-all: sys.bin app.bin
+all: sys.bin app.bin pipe.bin
 
 ## system compilation
 
@@ -68,11 +68,19 @@ app.bin: $(APP_OBJS) app.ld seg.ld
 	$(LD) -o $@ -T app.ld $(APP_OBJS)
 	$(DU) -D $@ > $@.txt
 
+pipe.bin: $(APP_OBJS) app.ld seg.ld main_pipe.o
+	$(LD) -o $@ -T app.ld stdio.o main_pipe.o
+	$(DU) -D $@ > $@.txt
+
 stdio.o: $(GIET_APP_PATH)/stdio.c $(GIET_APP_PATH)/stdio.h
 	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
 	$(DU) -D $@ > $@.txt
 
 main_dma.o: main_dma.c 
+	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
+	$(DU) -D $@ > $@.txt
+
+main_pipe.o: main_pipe.c 
 	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
 	$(DU) -D $@ > $@.txt
 
