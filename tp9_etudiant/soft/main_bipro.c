@@ -21,10 +21,16 @@
 
 #define NMAX 		50
 
-#define PRODUCER_DELAY 	10O
+#define PRODUCER_DELAY 	100
 #define CONSUMER_DELAY	100
 
-volatile int	BUF = 0;
+#define SYNC_MODE
+
+int	BUF = 0;
+
+#ifdef SYNC_MODE
+int 	SYNC = 0;
+#endif
 
 /******************************************/
 __attribute ((constructor)) void producer()
@@ -39,7 +45,14 @@ __attribute ((constructor)) void producer()
     for(n = 0 ; n < NMAX ; n++) 
     { 
 	for(x = 0 ; x < tempo ; x++) asm volatile ("");
+	#ifdef SYNC_MODE
+	while (SYNC);
+	#endif
 	BUF = n;
+	__sync_synchronize();
+	#ifdef SYNC_MODE
+	SYNC = 1;
+	#endif
         tty_printf("transmitted value : %d     temporisation = %d\n", n , tempo);
     }
 
@@ -60,8 +73,15 @@ __attribute ((constructor)) void consumer()
 
     for(n = 0 ; n < NMAX ; n++) 
     { 
-	for(x = 0 ; x < tempo ; x++) asm volatile (""); 
+	for(x = 0 ; x < tempo ; x++) asm volatile ("");
+	#ifdef SYNC_MODE
+		while(!SYNC);
+	#endif
         val = BUF;
+		__sync_synchronize();
+	#ifdef SYNC_MODE
+		SYNC = 0;
+	#endif
         tty_printf("received value : %d     temporisation = %d\n", val, tempo);
     }
 

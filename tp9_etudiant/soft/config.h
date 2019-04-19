@@ -3,5 +3,6 @@
 
 #define NB_PROCS    2
 #define NB_MAXTASKS 1
+#define NO_HARD_CC  0
 
 #endif

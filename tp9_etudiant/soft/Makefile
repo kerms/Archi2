@@ -15,6 +15,9 @@ SYS_OBJS=  reset.o \
 APP_OBJS=  stdio.o \
 	   main_bipro.o
 
+FIFO_OBJS=  stdio.o \
+	   main_fifo.o
+
 GIET_SYS_PATH= /users/enseig/alain/giet_2011/sys
 GIET_APP_PATH= /users/enseig/alain/giet_2011/app
 
@@ -22,7 +25,7 @@ CFLAGS= -Wall -mno-gpopt -ffreestanding -mips32
 
 ## system & application compilation
 
-all: sys.bin app.bin
+all: sys.bin app.bin fifo.bin
 
 ## system compilation
 
@@ -68,11 +71,19 @@ app.bin: $(APP_OBJS) app.ld seg.ld
 	$(LD) -o $@ -T app.ld $(APP_OBJS)
 	$(DU) -D $@ > $@.txt
 
+fifo.bin: $(FIFO_OBJS) app.ld seg.ld
+	$(LD) -o $@ -T app.ld $(APP_OBJS)
+	$(DU) -D $@ > $@.txt
+
 stdio.o: $(GIET_APP_PATH)/stdio.c $(GIET_APP_PATH)/stdio.h
 	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
 	$(DU) -D $@ > $@.txt
 
 main_bipro.o: main_bipro.c 
+	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
+	$(DU) -D $@ > $@.txt
+
+main_fifo.o: main_fifo.c
 	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
 	$(DU) -D $@ > $@.txt
 
