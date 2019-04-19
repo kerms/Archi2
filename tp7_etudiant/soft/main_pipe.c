@@ -49,16 +49,18 @@ __attribute__ ((constructor)) void main()
 
 			if(fb_completed() != 0)
 			{
-		            tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
+			        tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
 			    exit();
+			} else {
+				tty_printf(" - display OK at cycle %d for damier %d \n", proctime(), step);
 			}
+
 
 		    if(fb_write(0, BUF2, NLINE*NPIXEL) != 0)
 			{
 		        tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
 			    exit();
-			}
-			tty_printf(" - display OK at cycle %d for damier %d \n", proctime(), step-1);
+			} 
     		
 	        for(pixel = 0 ; pixel < NPIXEL ; pixel++)
         	{ 
@@ -79,17 +81,18 @@ __attribute__ ((constructor)) void main()
 
 			if(fb_completed() != 0)
 			{
-		            tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
+			        tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
 			    exit();
+			} else {
+				tty_printf(" - display OK at cycle %d for damier %d \n", proctime(), step);
 			}
+
 
 		    if(fb_write(0, BUF, NLINE*NPIXEL) != 0)
 			{
 		        tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
 			    exit();
 			}
-
-			tty_printf(" - display OK at cycle %d for damier %d \n", proctime(), step-1);
 
 	        for(pixel = 0 ; pixel < NPIXEL ; pixel++)
 	        { 
@@ -123,11 +126,11 @@ __attribute__ ((constructor)) void main()
 
 	if(fb_completed() != 0)
 	{
-            tty_printf("\n!!! error in fb_syn_write syscall !!!\n"); 
+            tty_printf("\n!!! error in complete !!!\n"); 
 	    exit();
 	}
 
-    tty_printf(" - display OK at cycle %d\n", proctime());
+    tty_printf(" - display OK at cycle %d for damier %d \n", proctime(), step);
 
     tty_printf("\nFin du programme au cycle = %d\n\n", proctime());
     exit(); 
