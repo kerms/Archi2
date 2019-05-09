@@ -11,7 +11,7 @@ typedef struct lock
 } lock_t;
 
 /******************/
-typedef struct fifo 
+typedef struct fifo
 {
     int	    buf[DEPTH];
     int	    ptr;
@@ -21,7 +21,8 @@ typedef struct fifo
     lock_t  lock;
 } fifo_t;
 
-volatile fifo_t fifo = { {} , 0 , 0 , 0 , DEPTH };
+volatile fifo_t fifoA = { {} , 0 , 0 , 0 , DEPTH };
+volatile fifo_t fifoB = { {} , 0 , 0 , 0 , DEPTH };
 
 /************************************************/
 unsigned int atomic_increment( unsigned int*  ptr,
@@ -133,11 +134,12 @@ __attribute__ ((constructor)) void producer()
 
     tty_printf("*** Starting task producer on processor %d ***\n\n", procid());
 
-    for(n = 0 ; n < NMAX ; n++) 
+    for(n = 1 ; n <= NMAX ; n++) 
     { 
         tempo = rand()>>6;
         val = n;
-        fifo_write((fifo_t*)&fifo, &val);
+        fifo_write((fifo_t*)&fifoA, &val);
+        tty_printf("Token : %d  \n", val);
         for(x = 0 ; x < tempo ; x++) asm volatile ("");
         tty_printf("transmitted value : %d      temporisation = %d\n", val, tempo);
     }
@@ -154,19 +156,58 @@ __attribute__ ((constructor)) void consumer()
     int x;
     int tempo = 0;
     int val;
+    int tab [50];
 
     tty_printf("*** Starting task consumer on processor %d ***\n\n", procid());
 
     for(n = 0 ; n < NMAX ; n++) 
     { 
         tempo = rand()>>6;
-        fifo_read((fifo_t*)&fifo, &val);
+        fifo_read((fifo_t*)&fifoB, &val);
+        if (tab[val -1] == 0)
+            tab[val -1]=val;
+        else 
+            tty_printf("Token already received : %d\n", tab[val-1]);
         for(x = 0 ; x < tempo ; x++) asm volatile ("");
         tty_printf("received value : %d      temporisation = %d\n", val, tempo);
     }
+    
+    for(n = 0 ; n < NMAX ; n++) 
+    { 
+        if (tab[n] == 0)
+        {
+            tty_printf("Token missed : %d\n", n+1);
+        }
+    }
+
 
     tty_printf("\n*** Completing consumer at cycle %d ***\n", proctime());
     exit();
 
 } // end consumer()
+__attribute__ ((constructor)) void router()
+{
+    int n;
+    int x;
+    int tempo = 0;
+    int val;
+
+    tty_printf("*** Starting task router on processor %d ***\n\n", procid());
+
+    while (1)
+    { 
+        tempo = rand()>>6;
+
+        fifo_read((fifo_t*)&fifoA, &val);
+        tty_printf("Token receive : %d temporisation = %d\n", val, tempo);
+        for(x = 0 ; x < tempo ; x++) asm volatile ("");
+        fifo_write((fifo_t*)&fifoB, &val);
+        //tty_printf("");
+    }
+
+    tty_printf("\n*** Completing router at cycle %d ***\n", proctime());
+    exit();
+
+} // end router()
+
 
