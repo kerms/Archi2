@@ -118,7 +118,10 @@ proc2:
        	li	$26,	0x0000FF13	
        	mtc0	$26,	$12			# SR <= 0x0000FF13
         # jump to main in user mode: main[0]
-	eret
+	la $26,    seg_data_base   
+        lw  $26, 8($26)         # read main[2]
+    mtc0    $26,  $14           # write it in EPC register
+    eret
 proc3:
         # initialises interrupt vector entries for PROC[3]
 	la	$26,	_interrupt_vector
@@ -139,7 +142,10 @@ proc3:
        	li	$26,	0x0000FF13	
        	mtc0	$26,	$12			# SR <= 0x0000FF13
         # jump to main in user mode: main[0]
-	eret
+	la $26,    seg_data_base   
+        lw  $26, 8($26)         # read main[2]
+    mtc0    $26,  $14           # write it in EPC register
+    eret
 proc4:
         # initialises interrupt vector entries for PROC[4]
 	la	$26,	_interrupt_vector
@@ -160,7 +166,10 @@ proc4:
        	li	$26,	0x0000FF13	
        	mtc0	$26,	$12			# SR <= 0x0000FF13
         # jump to main in user mode: main[0]
-	eret
+	la $26,    seg_data_base   
+        lw  $26, 8($26)         # read main[2]
+    mtc0    $26,  $14           # write it in EPC register
+    eret
 proc5:
         # initialises interrupt vector entries for PROC[5]
 	la	$26,	_interrupt_vector
@@ -181,7 +190,10 @@ proc5:
        	li	$26,	0x0000FF13	
        	mtc0	$26,	$12			# SR <= 0x0000FF13
         # jump to main in user mode: main[0]
-	eret
+	la $26,    seg_data_base   
+        lw  $26, 8($26)         # read main[2]
+    mtc0    $26,  $14           # write it in EPC register
+    eret
 
 	.set reorder
 	.endfunc
