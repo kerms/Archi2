@@ -85,7 +85,7 @@
 #define SEG_ICU_SIZE	32*nprocs 
 
 #define SEG_TTY_BASE	0x90000000
-#define SEG_TTY_SIZE	16*nprocs*4 
+#define SEG_TTY_SIZE	16*nprocs*4
 
 #define SEG_TIM_BASE	0x91000000
 #define SEG_TIM_SIZE	16*nprocs 
@@ -120,7 +120,7 @@ int _main (int argc, char *argv[])
     size_t  ncycles             = 1000000000;           // number of simulated cycles
     char    sys_path[256]       = "soft/sys.bin";       // pathname for system code
     char    app_path[256]       = "soft/app.bin";       // pathname for application code
-    char    disk_filename[256]  = "to_be_defined";      // pathname for the disk_image
+    char    disk_filename[256]  = "images.raw";      // pathname for the disk_image
     bool    trace_ok            = false;                // debug activated
     size_t  from_cycle          = 0;                    // debug start cycle
     size_t  ram_latency         = RAM_LATENCY;          // ram latency
@@ -465,24 +465,24 @@ int _main (int argc, char *argv[])
     icu.p_d			(signal_pi_d);
     icu.p_tout			(signal_pi_tout);
     // IOC
-    icu.p_irq_in[0]		TO BE COMPLETED 
+    icu.p_irq_in[0]		(signal_irq_ioc);
     // in : unused
     for ( size_t x=1 ; x<8 ; x++ )
     {
-        icu.p_irq_in[x]		TO BE COMPLETED 
+        icu.p_irq_in[x]		(signal_irq_false);
     }
     // in : TIMER & DMA
     for ( size_t p=0 ; p<4 ; p++)
     {
         if( p<nprocs )
         {
-            icu.p_irq_in[8+p]	TO BE COMPLETED      
-            icu.p_irq_in[12+p]	TO BE COMPLETED      
+            icu.p_irq_in[8+p]	(signal_irq_dma[p]);
+            icu.p_irq_in[12+p]	(signal_irq_tim[p]);
         }
         else
         {
-            icu.p_irq_in[8+p]	TO BE COMPLETED      
-            icu.p_irq_in[12+p]	TO BE COMPLETED      
+            icu.p_irq_in[8+p]	(signal_irq_false);
+            icu.p_irq_in[12+p]	(signal_irq_false);
         }
     }
     // in : TTY
@@ -491,15 +491,15 @@ int _main (int argc, char *argv[])
         for ( size_t t=0 ; t<4 ; t++)
         {
             if( (p<nprocs) and (t<4) )
-            icu.p_irq_in[16+p*4+t]	TO BE COMPLETED     
+            icu.p_irq_in[16+p*4+t]	(signal_irq_tty_get[t+p*4]);
             else
-            icu.p_irq_in[16+p*4+t]	TO BE COMPLETED      
+            icu.p_irq_in[16+p*4+t]	(signal_irq_false);
         }
     }
     // out : procs
     for ( size_t p=0 ; p<nprocs ; p++)
     {
-        icu.p_irq_out[p]  	TO BE COMPLETED       
+        icu.p_irq_out[p]  	(signal_irq_proc[p]);
     }
    
     std::cout << "icu : connected" << std::endl;
