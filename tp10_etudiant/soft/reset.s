@@ -87,39 +87,39 @@ reset:
         la	$8,	tasks_entry_point
 
         lw	$9, 0($7)			# seg_data[0] 
-        sw	$9,	0($8)			# set task_entry_point[0]
-        lw	$9, 4($7)			# seg_data[1]
-        sw	$9,	4($8)			# set task_entry_point[1]
-        lw	$9, 8($7)			# seg_data[2]
-        sw	$9,	8($8)			# set task_entry_point[2]
-        lw	$9, 12($7)			# seg_data[3]
-        sw	$9,	12($8)			# set task_entry_point[3]
+sw	$9,	0($8)			# set task_entry_point[0]
+        lw	$9, 8($7)#4($7)			# seg_data[1]
+sw	$9,	4($8)			# set task_entry_point[1]
+        lw	$9, 16($7)#8($7)			# seg_data[4]
+sw	$9,	8($8)			# set task_entry_point[2]
+        lw	$9, 8($7)#12($7)			# seg_data[3]
+sw	$9,	12($8)			# set task_entry_point[3]
 
-        la	$9,	_exit 
-        sw	$9,	16($8)			# set task_entry_point[4]
-        la	$9,	_exit 
-        sw	$9,	20($8)			# set task_entry_point[5] 
-        la	$9,	_exit 
-        sw	$9,	24($8)			# set task_entry_point[6]
-        la	$9,	_exit
-        sw	$9,	28($8)			# set task_entry_point[7]
+        lw  $9, 4($7)           # seg_data[1]
+sw	$9,	16($8)			# set task_entry_point[4]
+        lw  $9, 12($7)         # seg_data[3]
+sw	$9,	20($8)			# set task_entry_point[5] 
+        lw  $9, 4($7)           # seg_data[1]
+sw	$9,	24($8)			# set task_entry_point[6]
+        lw  $9, 12($7)         # seg_data[3]
+sw	$9,	28($8)			# set task_entry_point[7]
 
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	32($8)			# set task_entry_point[8]
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	36($8)			# set task_entry_point[9]
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	40($8)			# set task_entry_point[10]
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	44($8)			# set task_entry_point[11]
 
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	48($8)			# set task_entry_point[12]
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	52($8)			# set task_entry_point[13] 
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	56($8)			# set task_entry_point[14]
-        la	$9,	_exit
+        lw  $9, 20($7)
         sw	$9,	60($8)			# set task_entry_point[15]
 
         # _task_number_array[] initialization (done by all processors)
@@ -128,11 +128,11 @@ reset:
         la	$8,	_task_number_array
         li	$9,	4
         sb	$9,	0($8)			# set_ task_number_array[0]
-        li	$9,	0
+        li	$9,	4
         sb	$9,	1($8)			# set _task_number_array[1]
-        li	$9,	0
+        li	$9,	4
         sb	$9,	2($8)			# set _task_number_array[2]
-        li	$9,	0
+        li	$9,	4
         sb	$9,	3($8)			# set _task_number_array[3]
 
 	# Each processor checks the number of tasks for himself 
@@ -305,8 +305,8 @@ tasks_entry_point:		# 16 tasks entry points
 	.space	64
 
 icu_masks_array:		# mask for the IRQ routing : indexed by pid
-	.word	0b00000000000011110001000100000001   # ICU_MASK[0]
-	.word	0b00000000111100000010001000000000   # ICU_MASK[1]
+	.word	0b00000000000011110001000100000000   # ICU_MASK[0]
+	.word	0b00000000111100000010001000000001   # ICU_MASK[1]
 	.word	0b00001111000000000100010000000000   # ICU_MASK[2]
 	.word	0b11110000000000001000100000000000   # ICU_MASK[3]
 

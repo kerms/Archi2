@@ -15,7 +15,9 @@ SYS_OBJS=  reset.o \
 APP_OBJS=  stdio.o \
 	   main_pgcd.o \
            main_display.o \
-           main_fifo.o
+           main_fifo.o \
+           main_hello_tp2.o \
+           main_prime.o
 
 GIET_SYS_PATH= /users/enseig/alain/giet_2011/sys
 GIET_APP_PATH= /users/enseig/alain/giet_2011/app
@@ -83,6 +85,14 @@ main_display.o: main_display.c
 	$(DU) -D $@ > $@.txt
 
 main_fifo.o: main_fifo.c 
+	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
+	$(DU) -D $@ > $@.txt
+
+main_hello_tp2.o: main_hello_tp2.c 
+	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
+	$(DU) -D $@ > $@.txt
+
+main_prime.o: main_prime.c 
 	$(CC) $(CFLAGS) -I$(GIET_APP_PATH) -I. -c -o $@ $<
 	$(DU) -D $@ > $@.txt
 
