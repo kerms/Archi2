@@ -105,28 +105,28 @@ reset:
         sw	$9,	28($8)			# set task_entry_point[7]
 
         la	$9,	_exit
-        sw	$9,	0($8)			# set task_entry_point[8]
+        sw	$9,	32($8)			# set task_entry_point[8]
         la	$9,	_exit
-        sw	$9,	4($8)			# set task_entry_point[9]
+        sw	$9,	36($8)			# set task_entry_point[9]
         la	$9,	_exit
-        sw	$9,	8($8)			# set task_entry_point[10]
+        sw	$9,	40($8)			# set task_entry_point[10]
         la	$9,	_exit
-        sw	$9,	12($8)			# set task_entry_point[11]
+        sw	$9,	44($8)			# set task_entry_point[11]
 
         la	$9,	_exit
-        sw	$9,	16($8)			# set task_entry_point[12]
+        sw	$9,	48($8)			# set task_entry_point[12]
         la	$9,	_exit
-        sw	$9,	20($8)			# set task_entry_point[13] 
+        sw	$9,	52($8)			# set task_entry_point[13] 
         la	$9,	_exit
-        sw	$9,	24($8)			# set task_entry_point[14]
+        sw	$9,	56($8)			# set task_entry_point[14]
         la	$9,	_exit
-        sw	$9,	28($8)			# set task_entry_point[15]
+        sw	$9,	60($8)			# set task_entry_point[15]
 
         # _task_number_array[] initialization (done by all processors)
         # we must define the actual number of tasks assigned to each processor
         # this must be consistent with the task_entry_point array above.
         la	$8,	_task_number_array
-        li	$9,	0
+        li	$9,	4
         sb	$9,	0($8)			# set_ task_number_array[0]
         li	$9,	0
         sb	$9,	1($8)			# set _task_number_array[1]
@@ -194,7 +194,7 @@ ctx_loop_done:
         sw	$27,   40($26)			# _interrupt_vector[10] <= irq_dma[2]
         sw	$27,   44($26)			# _interrupt_vector[11] <= irq_dma[3]
 
-        la      $27,   seg_timer_base
+        la      $27,   _isr_switch
         sw      $27,   48($26)                  # _interrupt_vector[12] <= irq_timer[0]
         sw      $27,   52($26)                  # _interrupt_vector[13] <= irq_timer[1]
         sw      $27,   56($26)                  # _interrupt_vector[14] <= irq_timer[2]
@@ -306,8 +306,8 @@ tasks_entry_point:		# 16 tasks entry points
 
 icu_masks_array:		# mask for the IRQ routing : indexed by pid
 	.word	0b00000000000011110001000100000001   # ICU_MASK[0]
-	.word	0b00000000000011110001000100000001   # ICU_MASK[1]
-	.word	0b00000000000011110001000100000001   # ICU_MASK[2]
-	.word	0b00000000000011110001000100000001   # ICU_MASK[3]
+	.word	0b00000000111100000010001000000000   # ICU_MASK[1]
+	.word	0b00001111000000000100010000000000   # ICU_MASK[2]
+	.word	0b11110000000000001000100000000000   # ICU_MASK[3]
 
 	.end	reset
